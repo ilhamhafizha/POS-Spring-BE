@@ -18,6 +18,11 @@ public class Product {
         this.price = price;
     }
 
+    public void updateDetails(String name, BigDecimal price) {
+        this.name = name;
+        this.price = price;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

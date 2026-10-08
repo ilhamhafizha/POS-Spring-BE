@@ -10,12 +10,14 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 import com.portfolio.pos.product.dto.CreateProductRequest;
+import com.portfolio.pos.product.dto.UpdateProductRequest;
 
 @Service
 @Transactional(readOnly = true)
 public class ProductService {
 
     private final ProductRepository productRepository;
+
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -56,5 +58,24 @@ public class ProductService {
         Product savedProduct = productRepository.save(product);
 
         return toResponse(savedProduct);
+    }
+
+    @Transactional
+    public ProductResponse updateProduct(
+            Long id,
+            UpdateProductRequest request
+    ) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Produk tidak ditemukan"
+                ));
+
+        product.updateDetails(
+                request.name().strip(),
+                request.price()
+        );
+
+        return toResponse(product);
     }
 }
