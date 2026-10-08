@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.net.URI;
+import com.portfolio.pos.product.dto.UpdateProductRequest;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 public class ProductController {
@@ -48,5 +50,13 @@ public class ProductController {
         URI location = URI.create("/api/products/" + response.id());
 
         return ResponseEntity.created(location).body(response);
+    }
+
+    @PutMapping("/api/products/{id}")
+    public ProductResponse updateProduct(
+            @PathVariable("id") Long id,
+            @Valid @RequestBody UpdateProductRequest request
+    ) {
+        return productService.updateProduct(id, request);
     }
 }
