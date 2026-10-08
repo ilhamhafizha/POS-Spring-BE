@@ -9,6 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import com.portfolio.pos.product.dto.CreateProductRequest;
+
 @Service
 @Transactional(readOnly = true)
 public class ProductService {
@@ -42,5 +44,17 @@ public class ProductService {
                 product.getName(),
                 product.getPrice()
         );
+    }
+
+    @Transactional
+    public ProductResponse createProduct(CreateProductRequest request) {
+        Product product = new Product(
+                request.name().strip(),
+                request.price()
+        );
+
+        Product savedProduct = productRepository.save(product);
+
+        return toResponse(savedProduct);
     }
 }
