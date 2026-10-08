@@ -1,42 +1,46 @@
 package com.portfolio.pos.product;
 
 import com.portfolio.pos.product.dto.ProductResponse;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
+@Transactional(readOnly = true)
 public class ProductService {
 
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     public List<ProductResponse> getProducts() {
-        return List.of(
-                new ProductResponse(
-                        1L,
-                        "Nasi Goreng",
-                        new BigDecimal("25000")
-                ),
-                new ProductResponse(
-                        2L,
-                        "Es Teh",
-                        new BigDecimal("5000")
-                )
-        );
+        return productRepository.findAll(Sort.by("id"))
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     public ProductResponse getProductById(Long id) {
-        for (ProductResponse product : getProducts()) {
-            if (product.id().equals(id)) {
-                return product;
-            }
-        }
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Produk tidak ditemukan"
+                ));
 
-        throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "Produk tidak ditemukan"
+        return toResponse(product);
+    }
+
+    private ProductResponse toResponse(Product product) {
+        return new ProductResponse(
+                product.getId(),
+                product.getName(),
+                product.getPrice()
         );
     }
 }
