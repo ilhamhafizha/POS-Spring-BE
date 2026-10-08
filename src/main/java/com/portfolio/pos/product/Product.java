@@ -13,6 +13,11 @@ import java.math.BigDecimal;
 @Table(name = "products")
 public class Product {
 
+    public Product(String name, BigDecimal price) {
+        this.name = name;
+        this.price = price;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,4 +42,6 @@ public class Product {
     public BigDecimal getPrice() {
         return price;
     }
+
+
 }

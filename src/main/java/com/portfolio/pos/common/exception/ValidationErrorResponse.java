@@ -1,4 +1,9 @@
 package com.portfolio.pos.common.exception;
 
-public class ValidationErrorResponse {
+import java.util.List;
+
+public record ValidationErrorResponse(
+        String message,
+        List<FieldValidationError> errors
+) {
 }
