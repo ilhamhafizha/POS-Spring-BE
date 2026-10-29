@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PadiPos — Sales Report</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="pages.css">
+  <script type="module" src="admin.js"></script>
+</head>
+<body class="admin-page">
+  <aside class="sidebar" aria-label="Main navigation"></aside>
+  <div class="workspace">
+    <header class="header"></header>
+    <main class="admin-main">
+      <div class="dashboard-heading"><div><p class="eyebrow">BACK OFFICE</p><h1>Sales Report</h1><p class="page-description">Review sales, inspect transactions, and export your report.</p></div><div class="source-control"><label for="data-source">Data source</label><select id="data-source"><option value="server">Store transactions</option></select></div></div>
+      <div class="preview-notice"><span class="preview-badge">Store</span><p id="source-description">Loading store transactions…</p></div>
+      <section class="filter-bar" aria-label="Dashboard date filters">
+        <div class="range-presets" aria-label="Date range"><button data-days="1" aria-pressed="false">Today</button><button data-days="7" class="active" aria-pressed="true">Last 7 days</button><button data-days="30" aria-pressed="false">Last 30 days</button></div>
+        <form id="date-filter"><label>From<input id="date-from" type="date" required></label><span class="date-separator" aria-hidden="true">–</span><label>To<input id="date-to" type="date" required></label><button class="apply-date" type="submit">Apply</button></form>
+      </section>
+      <p id="range-error" class="error" role="alert" hidden></p>
+      <section class="metric-grid" aria-label="Sales summary" aria-live="polite">
+        <article class="metric-card"><span class="metric-label">Total Revenue</span><strong id="metric-revenue">Rp 0</strong><p>Paid sales · excluding tax</p></article>
+        <article class="metric-card"><span class="metric-label">Total Orders</span><strong id="metric-orders">0</strong><p>Completed payments</p></article>
+        <article class="metric-card"><span class="metric-label">Items Sold</span><strong id="metric-items">0</strong><p>Portions sold</p></article>
+        <article class="metric-card"><span class="metric-label">Average Order</span><strong id="metric-average">Rp 0</strong><p>Revenue per paid order</p></article>
+      </section>
+      <div class="analytics-grid">
+        <section class="dashboard-card revenue-card" aria-labelledby="revenue-title">
+          <div class="card-heading"><div><h2 id="revenue-title">Sales Overview</h2><p id="chart-period" class="card-subtitle"></p></div><span class="chart-legend"><i></i>Revenue</span></div>
+          <p class="chart-total" id="chart-total">Rp 0</p>
+          <div class="chart-layout"><div class="chart-axis" aria-hidden="true"><span id="axis-max"></span><span id="axis-mid"></span><span>Rp 0</span></div><div class="chart-scroll"><div id="revenue-chart" class="revenue-chart" role="img" aria-label="Daily revenue chart"></div></div></div>
+          <p id="chart-empty" class="chart-empty" hidden>No paid sales in this period.</p>
+          <details class="chart-data"><summary>View chart data</summary><table><caption class="sr-only">Daily revenue, excluding tax</caption><thead><tr><th scope="col">Date</th><th scope="col">Revenue</th></tr></thead><tbody id="chart-data-body"></tbody></table></details>
+        </section>
+        <section class="dashboard-card service-card" aria-labelledby="service-title"><div class="card-heading"><div><h2 id="service-title">Order Type</h2><p class="card-subtitle">Completed payments</p></div></div><div class="donut-wrap"><div id="service-donut" class="service-donut" role="img" aria-label="No completed orders"><div><strong id="donut-total">0</strong><span>Orders</span></div></div></div><div class="service-legend"><div><span><i class="dine-dot"></i>Dine in</span><strong id="dine-count">0</strong></div><div><span><i class="away-dot"></i>Take Away</span><strong id="away-count">0</strong></div></div></section>
+      </div>
+      <div class="lower-grid">
+        <section class="dashboard-card product-summary" aria-labelledby="product-title"><div class="card-heading"><div><h2 id="product-title">Top Product</h2><p class="card-subtitle">Based on paid orders</p></div><span class="rank">01</span></div><div class="top-product"><img src="assets/42-4552-imgImage5.png" alt="Gado-gado Special"><div><h3>Gado-gado Special</h3><p>Foods · Rp 20.000 /portion</p></div></div><div class="product-stats"><div><span>Portions sold</span><strong id="product-sold">0</strong></div><div><span>Revenue</span><strong id="product-revenue">Rp 0</strong></div></div><p id="product-caption" class="card-subtitle">One product available in this preview.</p></section>
+        <section class="dashboard-card period-summary" aria-labelledby="period-title"><div class="card-heading"><div><h2 id="period-title">Period Summary</h2><p class="card-subtitle">For the selected date range</p></div></div><dl><div><dt>Revenue before tax</dt><dd id="summary-revenue">Rp 0</dd></div><div><dt>Tax collected</dt><dd id="summary-tax">Rp 0</dd></div><div class="summary-total"><dt>Total collected</dt><dd id="summary-total">Rp 0</dd></div><div><dt>Unpaid archived orders</dt><dd id="summary-archived">0</dd></div></dl></section>
+      </div>
+      <div class="report-actions"><button id="export-report" class="secondary">Export CSV</button></div>
+      <section id="transactions" class="dashboard-card transaction-card" aria-labelledby="transactions-title">
+        <div class="card-heading"><div><h2 id="transactions-title">Recent Transactions</h2><p class="card-subtitle">Select an order to view its details.</p></div><label class="status-filter"><span class="sr-only">Filter transaction status</span><select id="status-filter"><option value="All">All statuses</option><option value="Paid">Paid</option><option value="Archived">Archived</option></select></label></div>
+        <div class="table-scroll"><table class="transaction-table"><caption class="sr-only">Transactions for the selected period and search</caption><thead><tr><th scope="col">Order ID</th><th scope="col">Customer</th><th scope="col">Date & time</th><th scope="col">Order type</th><th scope="col">Total</th><th scope="col">Status</th></tr></thead><tbody id="transaction-body"></tbody></table></div>
+        <div id="transactions-empty" class="transactions-empty" hidden><h3>No transactions found</h3><p>Try another date range, status, or search term.</p><a href="/cashier">Open Cashier</a></div>
+        <div class="pagination"><p id="page-description" aria-live="polite"></p><div><button id="previous-page" aria-label="Previous page" disabled>Previous</button><span id="page-number"></span><button id="next-page" aria-label="Next page" disabled>Next</button></div></div>
+      </section>
+    </main>
+  </div>
+  <dialog id="transaction-dialog" aria-labelledby="transaction-detail-title"><div class="dialog-heading"><h2 id="transaction-detail-title">Order Details</h2><button id="close-transaction" class="close-dialog" aria-label="Close order details">×</button></div><div id="transaction-detail"></div><button id="detail-done" class="primary">Done</button></dialog>
+</body>
+</html>

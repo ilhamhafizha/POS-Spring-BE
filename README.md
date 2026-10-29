@@ -71,6 +71,8 @@ Tes backend menggunakan H2 dalam mode PostgreSQL. Pengujian tersebut tidak mengg
 
 ## Konfigurasi dan batasan
 
-`.env.example` mendokumentasikan variabel konfigurasi tanpa kredensial pribadi. `.env`, konfigurasi IDE, dan hasil build diabaikan Git. Dokumentasi pendukung dan referensi desain disimpan dalam `docs/` dan disertakan dalam repository.
+`.env.example` mendokumentasikan variabel konfigurasi. Untuk kebutuhan clone pribadi, repository ini juga menyertakan snapshot `.env`, konfigurasi IDE, dan hasil build lokal meskipun polanya masih terdaftar dalam `.gitignore`. File yang sudah dilacak tetap ikut dalam commit berikutnya. Dokumentasi pendukung dan referensi desain disimpan dalam `docs/`.
+
+Setelah clone di PC lain, sesuaikan `DB_URL` dan port dalam `.env` bila diperlukan, lalu jalankan PostgreSQL dan aplikasi sesuai langkah di atas. Data PostgreSQL dalam volume Docker berada di luar repository dan tidak ikut saat clone.
 
 Pembayaran saat ini mencatat transaksi tunai; integrasi payment gateway dan pemulihan password melalui UI belum tersedia. Frontend mengasumsikan aplikasi dilayani pada root domain.

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PadiPos — Cashier</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="pages.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Main navigation"></aside>
+  <div class="workspace">
+    <header class="header"></header>
+    <main class="cashier">
+      <section class="catalog" aria-label="Menu catalog">
+        <div class="categories" aria-label="Menu categories">
+          <button class="category active" data-category="All Menu" aria-pressed="true">All Menu</button>
+          <button class="category" data-category="Foods" aria-pressed="false"><img src="assets/tabs-imgVuesaxLinearReserve.svg" alt="">Foods</button>
+          <button class="category" data-category="Beverages" aria-pressed="false"><img src="assets/tabs-imgVuesaxLinearCoffee.svg" alt="">Beverages</button>
+          <button class="category" data-category="Dessert" aria-pressed="false"><img src="assets/tabs-imgVuesaxLinearCake.svg" alt="">Dessert</button>
+        </div>
+        <div id="products" class="products"></div>
+        <div id="no-results" class="empty-catalog" hidden><h2>No menu found</h2><p>Try another keyword or category.</p><button id="reset-filter" class="text-button">Show all menu</button></div>
+      </section>
+      <section class="order-panel" aria-labelledby="order-title">
+        <div class="order-heading"><div><h1 id="order-title">List Order</h1><p class="order-number">No Order <span id="order-number"></span></p></div><button id="save-order" class="icon-button save-order" aria-label="Archive current order"><img src="assets/148-33316-imgVuesaxLinearArchiveAdd.svg" alt=""></button></div>
+        <div class="service-toggle" aria-label="Order type"><button class="active" data-service="Dine in" aria-pressed="true">Dine in</button><button data-service="Take Away" aria-pressed="false">Take Away</button></div>
+        <div class="customer-fields"><label>Customer Name<input id="customer" placeholder="Customer Name" maxlength="80" autocomplete="off"></label><label id="table-field">No.Table<select id="table" aria-label="Table number"><option value="">Select No.Table</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option></select></label></div>
+        <img class="order-divider" src="assets/148-33316-imgLine10.svg" alt="">
+        <div id="order-items" class="order-items" aria-live="polite"></div>
+        <div class="order-bottom"><div class="receipt"><img class="receipt-paper" src="assets/148-33316-imgSubtract.svg" alt=""><div class="receipt-row"><span>Sub Total</span><span id="subtotal">Rp 0</span></div><div class="receipt-row"><span>Tax</span><span id="tax">Rp 0</span></div><img class="receipt-divider" src="assets/148-33316-imgLine11.svg" alt=""><div class="receipt-total"><span>Total</span><strong id="total">Rp 0</strong></div></div><button id="pay" class="primary" disabled>Pay</button></div>
+      </section>
+    </main>
+  </div>
+  <dialog id="detail-dialog" aria-label="Menu Details"></dialog>
+  <dialog id="note-dialog"><form id="note-form"><div class="dialog-heading"><h2>Order Note</h2><button type="button" class="close-dialog" aria-label="Close">×</button></div><label>Gado-gado Special<textarea id="note" rows="4" maxlength="200" placeholder="e.g. Without egg and tofu"></textarea></label><button class="primary" type="submit">Save Note</button></form></dialog>
+  <dialog id="payment-dialog"><form id="payment-form"><div class="dialog-heading"><h2>Payment Receipt</h2><button type="button" class="close-dialog" aria-label="Close">×</button></div><p class="muted">Review your order, then confirm the cash payment.</p><div id="payment-items" class="checkout-receipt-items"></div><div class="payment-total"><span>Total</span><strong id="payment-total"></strong></div><p>Select Nominal</p><div class="nominals"><button type="button" data-nominal="50000">Rp 50.000</button><button type="button" data-nominal="75000">Rp 75.000</button><button type="button" data-nominal="100000">Rp 100.000</button></div><label>Cash received<input id="cash" type="number" min="0" step="1" required placeholder="Enter Nominal here..."></label><p id="payment-error" class="error" role="alert"></p><div class="payment-total"><span>Change</span><strong id="change">Rp 0</strong></div><button class="primary" type="submit">Confirm Payment</button></form></dialog>
+  <dialog id="receipt-dialog" aria-labelledby="receipt-title"><div class="checkout-receipt-heading"><span class="receipt-check" aria-hidden="true">✓</span><h2 id="receipt-title">Payment Receipt</h2><p class="muted">Payment recorded successfully</p></div><div id="receipt-content"></div><button id="receipt-done" class="primary" type="button">Done</button></dialog>
+  <dialog id="order-success-dialog" aria-labelledby="order-success-title"><div class="checkout-receipt-heading"><span class="receipt-check" aria-hidden="true">✓</span><h2 id="order-success-title">Order Accepted</h2><p id="accepted-order" class="muted" role="status"></p></div><button id="new-order" class="primary" type="button">New Order</button></dialog>
+  <dialog id="archive-dialog"><div class="dialog-heading"><h2>Order Archive</h2><button class="close-dialog" aria-label="Close">×</button></div><div id="archive-list"></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
