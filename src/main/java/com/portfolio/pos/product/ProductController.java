@@ -20,6 +20,8 @@ import java.net.URI;
 import com.portfolio.pos.product.dto.UpdateProductRequest;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
+
 @RestController
 public class ProductController {
 
@@ -28,6 +30,9 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
+
+    @DeleteMapping("/api/products/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id){productService.deleteProduct(id);return ResponseEntity.noContent().build();}
 
     @GetMapping("/api/products")
     public List<ProductResponse> getProducts() {

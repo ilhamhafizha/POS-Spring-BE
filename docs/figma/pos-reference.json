@@ -1,0 +1,28 @@
+{
+  "source": "https://www.figma.com/design/yBIaE4PeVjTi2kZGTvYwbw/POS-Sederhana--Copy-?node-id=126-9751",
+  "currency": "IDR",
+  "categories": ["Foods", "Beverages", "Dessert"],
+  "products": [
+    {
+      "name": "Gado-gado Special",
+      "description": "Vegetables, egg, tempe, tofu, ketupat, peanut sauce, and kerupuk.",
+      "category": "Foods",
+      "price": 20000.00,
+      "unit": "portion"
+    }
+  ],
+  "orderExample": {
+    "orderNumber": "ORDR#1234567890",
+    "customerName": "Anisa",
+    "serviceType": "Dine in",
+    "tableNumber": "02",
+    "items": [
+      { "productName": "Gado-gado Special", "quantity": 1, "unitPrice": 20000.00, "lineTotal": 20000.00 },
+      { "productName": "Gado-gado Special", "quantity": 2, "unitPrice": 20000.00, "lineTotal": 40000.00, "note": "Without egg and tofu" }
+    ],
+    "subtotal": 60000.00,
+    "tax": 5000.00,
+    "total": 65000.00
+  },
+  "paymentNominalOptions": [50000.00, 75000.00, 100000.00]
+}

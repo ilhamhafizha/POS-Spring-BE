@@ -33,6 +33,12 @@ public class Product {
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal price;
 
+    @Column(nullable=false,length=20) public String category="Foods";
+    @Column(nullable=false,length=300) public String description="";
+    @Column(nullable=false,length=20) public String unit="portion";
+    @Column(nullable=false,columnDefinition="text") public String image="";
+    @Column(nullable=false) public boolean active=true;
+
     protected Product() {
     }
 

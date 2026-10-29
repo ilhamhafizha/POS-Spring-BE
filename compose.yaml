@@ -2,11 +2,11 @@ services:
   postgres:
     image: postgres:17
     environment:
-      POSTGRES_DB: pos_db
-      POSTGRES_USER: pos_user
-      POSTGRES_PASSWORD: local_dev_password
+      POSTGRES_DB: ${DB_NAME:-pos_db}
+      POSTGRES_USER: ${DB_USERNAME:?Set DB_USERNAME in .env}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
